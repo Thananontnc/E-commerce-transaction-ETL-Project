@@ -20,7 +20,7 @@ def convert_rate(price, rate):
 def get_api_data(out_put_path):
     try:
         r = requests.get('API_LINK', timeout=10)
-        r.raise_for_status()  # Raise an error for HTTP status codes >= 400
+        r.raise_for_status()  
         data = r.json()
         conversion_rate = pd.DataFrame(data)
         conversion_rate = conversion_rate.drop(columns=['id'])

@@ -3,6 +3,7 @@ import pandas as pd
 import sqlalchemy
 import requests
 from google.colab import userdata
+from google.cloud import storage
 
 
 class Config:
@@ -56,8 +57,24 @@ def Transform_data(final_df):
     final_df = final_df.drop(["date", "gbp_thb"], axis=1)
     final_df.columns = ['transaction_id', 'date', 'product_id', 'price', 'quantity', 'customer_id',
         'product_name', 'customer_country', 'customer_name', 'total_amount','thb_amount']
-    final_df.fillna({
-        'CustomerNo':'Unknown'
-    },inplace = True)
+    return final_df
 
+def load_data_to_cloud(df, destination_bucket, destination_file):
+    client = storage.Client()
+    bucket = client.bucket(destination_bucket)
+    blob = bucket.blob(destination_file)
+    blob.upload_from_string(df.to_csv(index=False), content_type='text/csv')
+    print("Load Successfully!!!")
 
+def main():
+    api_data = get_api_data("API_Currency")
+    df = get_data_from_db('MYSQL_DB',
+                      'customer',
+                      'transaction',
+                      'product',
+                      engine,
+                      api_data)
+    load_data_to_cloud(df,'BUCKET_NAME','FILE_NAME.csv')
+
+if __name__ == '__main__':
+    main()

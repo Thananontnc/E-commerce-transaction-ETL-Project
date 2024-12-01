@@ -33,3 +33,10 @@ GCS is used to temporarily store the raw data, cleaned data, and final data file
 
 BigQuery:
 Load Data to BigQuery (t5): The final transformed data (final_output.csv) is loaded into a BigQuery dataset (Retail_Dataset.retail_transaction_customer_table).
+
+## Data Visualization
+![Screen Shot 2567-12-01 at 12 13 02 PM](https://github.com/user-attachments/assets/a9c24f41-9fa1-42ed-a8e9-4e42cf363b82)
+
+
+![Screen Shot 2567-12-01 at 12 13 13 PM](https://github.com/user-attachments/assets/245f1022-cbe6-48f3-9735-4edee5e08c0d)
+
